@@ -5,17 +5,20 @@ import promptSync from 'prompt-sync';
 const app = express();
 const prompt = promptSync()
 
+// initialize queues
 const doughQueue = new Queue('dough');
 const toppingsQueue = new Queue('toppings');
 const ovenQueue = new Queue('oven');
 const servingQueue = new Queue('serving');
 
+// orders array
 let pizzaOrders = [
     { name : 'pizza1' , toppings : ['onion', 'tomato']},
     { name : 'pizza2' , toppings : ['cheese', 'tomato']},
     { name : 'pizza3' , toppings : ['capsicum', 'onion']}
 ]
 
+// prompt asking for manager name
 const name = prompt('What is your name?');
 console.log(`Hey there ${name} here is the order for you to manage: `, JSON.stringify(pizzaOrders));
 
@@ -25,6 +28,7 @@ toppingsQueue.purge();
 ovenQueue.purge();
 servingQueue.purge();
 
+// global timer
 var timer = 0;
 setInterval(function () {
     timer = ++timer; // SET { 1-360 }
@@ -43,6 +47,7 @@ async function sendTwoInitialPizzasForProcessing(pizzaOrders) {
     }
 }
 
+// count limiter < 2 because of only 2 dough chefs
 async function startOtherPizzasProcessing(pizzaOrders) {
     var index = 2;
     var interval = setInterval(async function(){
@@ -64,6 +69,8 @@ async function startOtherPizzasProcessing(pizzaOrders) {
     }, 1000)
 }
 
+// count limiter < 3 because of only 3 topping chefs
+// timeout of 7 secs as mentioned in problem statement
 var doughInterval = setInterval(async function(){
     let doughItem = await doughQueue.receive(); 
     setTimeout( async () => {
@@ -80,6 +87,8 @@ var doughInterval = setInterval(async function(){
     }, 7000)
 }, 1000)
 
+// count limiter < 2 because of only 1 oven
+// timeout of 4 secs as mentioned in problem statement
 var toppingsInterval = setInterval(async function(){
     let toppingItem = await toppingsQueue.receive(); 
     setTimeout( async () => {
@@ -96,6 +105,8 @@ var toppingsInterval = setInterval(async function(){
     }, 4000)
 }, 1000)
 
+// count limiter < 2 because of only 2 serving people
+// timeout of 10 secs as mentioned in problem statement
 var ovenInterval = setInterval(async function(){
     let ovenItem = await ovenQueue.receive(); 
     setTimeout( async () => {
@@ -112,6 +123,7 @@ var ovenInterval = setInterval(async function(){
     }, 10000)
 }, 1000)
 
+// timeout of 5 secs as mentioned in problem statement
 var servingInterval = setInterval(async function(){
     let servingItem = await servingQueue.receive(); 
     setTimeout( async () => {
