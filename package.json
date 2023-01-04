@@ -1,0 +1,19 @@
+{
+  "name": "reasonlabs-pizza-restaurant",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@craigbuckler/queue-mongodb": "^1.1.1",
+    "express": "^4.18.2",
+    "prompt-sync": "^4.2.0"
+  }
+}
