@@ -4,6 +4,8 @@ The idea behind the problem is to take the pizza orders and process them from di
 
 Pizza cycle - Dough chef -> Topping chef -> Oven -> Serving
 
+Following are the important variables used in index.js
+
 ```
 pizzaOrders - all the orders
 doughQueue - queue for dough processing
