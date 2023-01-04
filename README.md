@@ -42,5 +42,9 @@ It will ask for the manager name and as soon as name is entered it will start pr
 
 For changing any input data please modify pizzaOrders array in index.js file
 
+### References
+
+* https://www.npmjs.com/package/@craigbuckler/queue-mongodb
+
 ## Authors
 * Sarthak Soni - sarthaksoni987@gmail.com
